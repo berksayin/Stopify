@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Stopify.Model.Dtos
 {
-    class UserDto
+    public class UserDto
     {
+        //Simple model or Viewmodel.
+
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }

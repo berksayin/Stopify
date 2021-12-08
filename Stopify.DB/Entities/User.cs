@@ -7,6 +7,8 @@ namespace Stopify.DB.Entities
 {
     public partial class User
     {
+        //Database model.
+
         public int Id { get; set; }
         public int UserType { get; set; }
         public string UserName { get; set; }

@@ -7,6 +7,7 @@ namespace Stopify.Service.Services
 {
     public class UserService : IUserService
     {
+        //Login
         public bool Login(string userName, string password)
         {
             bool result = false;
@@ -18,24 +19,14 @@ namespace Stopify.Service.Services
             return result;
         }
 
-        public void Insert()
+        public void Insert(Stopify.DB.Entities.User newUser)
         {
-            var newUser = new Stopify.DB.Entities.User();
             using (var srv = new StopifyContext())
             {
-                try
-                {
-                    srv.Database.BeginTransaction();
-                    srv.User.Add(newUser);
-                    srv.SaveChanges();
-                    srv.Database.CommitTransaction();
-                }
-                catch (Exception)
-                {
-                    srv.Database.RollbackTransaction();
-                }
+                srv.User.Add(newUser);
+                srv.SaveChanges();
             }
-            
+
         }
     }
 }

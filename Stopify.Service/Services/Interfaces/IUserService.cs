@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Stopify.Service.Services.Interfaces
+﻿namespace Stopify.Service.Services.Interfaces
 {
     public interface IUserService
     {
+        //Interface of UserService
         bool Login(string userName, string password);
+        void Insert(Stopify.DB.Entities.User newUser);
     }
 }
