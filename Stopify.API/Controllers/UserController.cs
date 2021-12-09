@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Stopify.Model;
 using Stopify.Service.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,12 +28,9 @@ namespace Stopify.API.Controllers
         }
 
         [HttpPost]
-        public bool Insert(Stopify.Model.Dtos.UserDto newUser)
+        public General<Model.Dtos.UserDto> Insert([FromBody] Stopify.Model.Dtos.UserDto newUser)
         {
-            var result = false;
-            var data = _mapper.Map<Stopify.DB.Entities.User>(newUser);
-            _userService.Insert(data);
-            return result;
+            return _userService.Insert(newUser);
         }
     }
 }

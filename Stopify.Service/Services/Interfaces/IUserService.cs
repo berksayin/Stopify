@@ -1,9 +1,12 @@
-﻿namespace Stopify.Service.Services.Interfaces
+﻿using Stopify.Model;
+
+namespace Stopify.Service.Services.Interfaces
 {
     public interface IUserService
     {
         //Interface of UserService
         bool Login(string userName, string password);
-        void Insert(Stopify.DB.Entities.User newUser);
+        public General<Stopify.Model.Dtos.UserDto> Insert(Stopify.Model.Dtos.UserDto newUser);
+        //void Insert(Stopify.DB.Entities.User newUser);
     }
 }
