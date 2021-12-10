@@ -7,10 +7,12 @@ namespace Stopify.Service.Services.Interfaces
     {
         //Interface of UserService
         bool Login(string userName, string password);
+        General<UserDetailsDto> GetAllUsers();
+        General<UserDetailsDto> GetUserById(int id);
         General<UserDetailsDto> GetActiveUsers(/*UserDetailsDto getUsers*/);
         General<UserDto> Insert(UserDto newUser);
         General<UserUpdateDto> Update(UserUpdateDto updateUser);
         bool ActivateUser(string userName, string password);
-        General<UserDeleteDto> Delete(UserDeleteDto deleteUser, int id);
+        General<UserDeleteDto> Delete(/*UserDeleteDto deleteUser,*/ int id);
     }
 }
