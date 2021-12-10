@@ -5,6 +5,7 @@ using Stopify.Model;
 using Stopify.Model.Dtos;
 using Stopify.Service.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Stopify.Service.Services
@@ -25,6 +26,21 @@ namespace Stopify.Service.Services
             {
                 result = srv.User.Any(a => !a.IsDeleted && a.IsActive &&
                 a.UserName == userName && a.Password == password);
+            }
+            return result;
+        }
+
+        //List Users
+        public General<UserDetailsDto> GetActiveUsers(/*UserDetailsDto getUsers*/)
+        {
+            var result = new General<Model.Dtos.UserDetailsDto>() { IsSuccess = false };
+            //var model = _mapper.Map<Stopify.DB.Entities.User>(getUsers);
+            using (var srv = new StopifyContext())
+            {
+                var userData = srv.User.Where(x => x.IsActive && !x.IsDeleted).OrderBy(x => x.Id);
+                result.List = _mapper.Map<List<UserDetailsDto>>(userData);
+                result.IsSuccess = true;
+                result.TotalCount = userData.Count();
             }
             return result;
         }
@@ -59,34 +75,35 @@ namespace Stopify.Service.Services
         }
 
         //Update
-        public General<UserDto> Update(UserDto updateUser)
+        public General<UserUpdateDto> Update(UserUpdateDto updateUser)
         {
-            var result = new General<Model.Dtos.UserDto>() { IsSuccess = false };
+            var result = new General<Model.Dtos.UserUpdateDto>() { IsSuccess = false };
 
             var model = _mapper.Map<Stopify.DB.Entities.User>(updateUser);
             using (var srv = new StopifyContext())
             {
                 srv.User.Update(model);
                 srv.SaveChanges();
-                result.Entity = _mapper.Map<Stopify.Model.Dtos.UserDto>(model);
+                result.Entity = _mapper.Map<Stopify.Model.Dtos.UserUpdateDto>(model);
                 result.IsSuccess = true;
             }
 
             return result;
         }
 
+        //User Activation
         public bool ActivateUser(string userName, string password)
         {
             bool result = false;
-            using (var svr = new StopifyContext())
+            using (var srv = new StopifyContext())
             {
-                var existingUser = svr.User.FirstOrDefault(x => x.UserName == userName && x.Password == password);
+                var existingUser = srv.User.FirstOrDefault(x => x.UserName == userName && x.Password == password);
 
                 if (existingUser != null)
                 {
                     existingUser.IsActive = true;
-                    svr.User.Update(existingUser);
-                    svr.SaveChanges();
+                    srv.User.Update(existingUser);
+                    srv.SaveChanges();
 
                     result = true;
                 }
@@ -94,5 +111,31 @@ namespace Stopify.Service.Services
             }
             return result;
         }
+
+        //User Delete
+        public General<UserDeleteDto> Delete(UserDeleteDto deleteUser, int id)
+        {
+            var result = new General<Model.Dtos.UserDeleteDto>() { IsSuccess = false };
+
+            var model = _mapper.Map<Stopify.DB.Entities.User>(deleteUser);
+            using (var srv = new StopifyContext())
+            {
+                var existingUser = srv.User.FirstOrDefault(x => x.Id == id);
+                if (existingUser != null)
+                {
+                    existingUser.IsActive = false;
+                    existingUser.IsDeleted = true;
+                    srv.User.Update(existingUser);
+                    srv.SaveChanges();
+                    result.Entity = _mapper.Map<Stopify.Model.Dtos.UserDeleteDto>(model);
+                    result.IsSuccess = true;
+                }
+                else result.ExceptionMessage = "Böyle bir id mevcut değil!";
+            }
+
+            return result;
+        }
+
+        
     }
 }

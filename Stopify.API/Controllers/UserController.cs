@@ -26,6 +26,12 @@ namespace Stopify.API.Controllers
             return Ok(_userService.Login(userName, password));
         }
 
+        [HttpGet("getActiveUsers")]
+        public General<Model.Dtos.UserDetailsDto> GetActiveUsers()
+        {
+            return _userService.GetActiveUsers();
+        }
+
         [HttpPost("activateUser")]
         public IActionResult ActivateUser(string userName, string password)
         {
@@ -38,9 +44,15 @@ namespace Stopify.API.Controllers
         }
 
         [HttpPut("update")]
-        public General<Model.Dtos.UserDto> Update([FromBody] Stopify.Model.Dtos.UserDto updateUser)
+        public General<Model.Dtos.UserUpdateDto> Update([FromBody] Stopify.Model.Dtos.UserUpdateDto updateUser)
         {
             return _userService.Update(updateUser);
+        }
+
+        [HttpPut("delete")]
+        public General<Model.Dtos.UserDeleteDto> Delete([FromBody] Stopify.Model.Dtos.UserDeleteDto deleteUser, int id)
+        {
+            return _userService.Delete(deleteUser, id);
         }
     }
 }

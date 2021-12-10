@@ -7,9 +7,10 @@ namespace Stopify.Service.Services.Interfaces
     {
         //Interface of UserService
         bool Login(string userName, string password);
-        public General<Stopify.Model.Dtos.UserDto> Insert(Stopify.Model.Dtos.UserDto newUser);
-        General<UserDto> Update(UserDto updateUser);
+        General<UserDetailsDto> GetActiveUsers(/*UserDetailsDto getUsers*/);
+        General<UserDto> Insert(UserDto newUser);
+        General<UserUpdateDto> Update(UserUpdateDto updateUser);
         bool ActivateUser(string userName, string password);
-        //void Insert(Stopify.DB.Entities.User newUser);
+        General<UserDeleteDto> Delete(UserDeleteDto deleteUser, int id);
     }
 }
