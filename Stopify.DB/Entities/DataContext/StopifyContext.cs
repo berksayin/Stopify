@@ -18,6 +18,8 @@ namespace Stopify.DB.Entities.DataContext
         {
         }
 
+        public virtual DbSet<Artist> Artist { get; set; }
+        public virtual DbSet<Song> Song { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
 
@@ -33,6 +35,38 @@ namespace Stopify.DB.Entities.DataContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Turkish_CI_AS");
+
+            modelBuilder.Entity<Artist>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Song>(entity =>
+            {
+                entity.Property(e => e.SongName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Artist)
+                    .WithMany(p => p.Song)
+                    .HasForeignKey(d => d.ArtistId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Song_Artist");
+            });
 
             modelBuilder.Entity<User>(entity =>
             {

@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Service", "Stopify.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stopify.Web", "Stopify.Web\Stopify.Web.csproj", "{5F8C6428-F837-44F5-8CB5-BC59860F5BEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stopify.Artist.API", "Stopify.Artist.API\Stopify.Artist.API.csproj", "{F2C87957-277A-4282-9CA3-9201BF77769B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{5F8C6428-F837-44F5-8CB5-BC59860F5BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F8C6428-F837-44F5-8CB5-BC59860F5BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F8C6428-F837-44F5-8CB5-BC59860F5BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C87957-277A-4282-9CA3-9201BF77769B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C87957-277A-4282-9CA3-9201BF77769B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C87957-277A-4282-9CA3-9201BF77769B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C87957-277A-4282-9CA3-9201BF77769B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
